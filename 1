@@ -1,0 +1,36 @@
+enabled="false";
+function OnEvent(event, arg)
+ --OutputLogMessage("event = %s, arg = %s\n", event, arg);
+ if event=="MOUSE_BUTTON_RELEASED" and arg==6 then
+  --OutputLogMessage("mouse button 4 pressed " .. enabled .. "\n");
+  if enabled=="true" then
+   enabled="false";
+   ReleaseKey("lshift");
+   ReleaseKey("w");
+  else 
+   enabled="true";
+   PressKey("lshift");
+   PressKey("w");
+  end
+ end
+ if arg=="w" then
+  if enabled=="true" then
+   enabled="false";
+   ReleaseKey("lshift");
+   ReleaseKey("w");
+  end
+ end
+toggle_button = 7 -- What mouse button should control the toggle
+button_to_toggle = 1 -- What button to toggle
+button_toggled = false
+function OnEvent(event, arg)
+	if event == "MOUSE_BUTTON_PRESSED" and arg == toggle_button then
+		button_toggled = not button_toggled
+		OutputLogMessage("Mouse %d toggled %s", button_to_toggle, tostring(button_toggled))
+		if button_toggled then
+			PressMouseButton(button_to_toggle)
+		else
+			ReleaseMouseButton(button_to_toggle)
+		end
+	end
+end
